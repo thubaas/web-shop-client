@@ -7,14 +7,18 @@ import { FormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CategoryModule } from './category/category.module';
+import { ProductModule } from './product/product.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent
+  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    CategoryModule,
+    FormsModule,
+    ProductModule,
+    SharedModule,
   ],
-  imports: [AppRoutingModule, BrowserModule, CategoryModule, FormsModule, SharedModule],
   providers: [],
   bootstrap: [AppComponent],
 })
