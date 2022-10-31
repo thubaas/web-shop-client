@@ -8,6 +8,7 @@ import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
+import { CartModule } from './cart/cart.module';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -15,6 +16,7 @@ import { ProductModule } from './product/product.module';
     AppRoutingModule,
     BrowserModule,
     CategoryModule,
+    CartModule,
     FormsModule,
     ProductModule,
     SharedModule,
