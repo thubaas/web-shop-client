@@ -10,9 +10,10 @@ import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, WishlistComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, WishlistComponent, HomeComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
