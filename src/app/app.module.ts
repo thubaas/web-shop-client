@@ -11,9 +11,13 @@ import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { HomeComponent } from './home/home.component';
+import { PaymentComponent } from './payment/payment.component';
+import { AuthComponent } from './auth/auth.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, WishlistComponent, HomeComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, WishlistComponent, HomeComponent, PaymentComponent, AuthComponent, SigninComponent, SignupComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
