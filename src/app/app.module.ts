@@ -9,9 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { CategoryModule } from './category/category.module';
 import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
+import { WishlistComponent } from './wishlist/wishlist.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, WishlistComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
