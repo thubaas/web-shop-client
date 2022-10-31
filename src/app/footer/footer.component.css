@@ -1,0 +1,26 @@
+footer {
+  margin-top: 100px;
+  background-color: #232f3e;
+  font-size: 16px;
+}
+
+li {
+  padding-left: 0;
+  padding-bottom: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.footer-link {
+  color: #ddd;
+}
+
+#logo {
+  width: 150px;
+}
+
+footer {
+  font-family: "Roboto", sans-serif;
+}
