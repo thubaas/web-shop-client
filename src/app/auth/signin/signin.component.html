@@ -1,1 +1,74 @@
-<p>signin works!</p>
+<ng-template appPlaceholder></ng-template>
+<div class="row">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <h4 class="my-3 text-center">{{ formTitle }}</h4>
+    <div class="text-center" *ngIf="isAuthenticated">
+      <button class="btn btn-danger mx-auto" (click)="onSignout()">
+        Sign Out
+      </button>
+    </div>
+    <div *ngIf="!isAuthenticated">
+      <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input
+            formControlName="email"
+            type="email"
+            class="form-control"
+            id="email"
+            placeholder="test@test.com"
+          />
+
+          <div
+            *ngIf="
+              !signinForm.get('email')?.valid &&
+              signinForm.get('email')?.touched
+            "
+            class="alert alert-danger"
+          >
+            A valid email is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input
+            formControlName="password"
+            type="password"
+            class="form-control"
+            id="password"
+            placeholder="password"
+          />
+
+          <div
+            *ngIf="
+              !signinForm.get('password')?.valid &&
+              signinForm.get('password')?.touched
+            "
+            class="alert alert-danger"
+          >
+            A valid password is required
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary me-2"
+          [disabled]="signinForm.status !== 'VALID'"
+        >
+          Submit
+        </button>
+
+        <button type="reset" class="btn btn-danger ms-2" (click)="onCancel()">
+          Cancel
+        </button>
+      </form>
+      <div class="text-primary my-3" role="button" (click)="onSignup()">
+        Don't have an account? Sign up here.
+      </div>
+    </div>
+  </div>
+  <div class="col-3"></div>
+</div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

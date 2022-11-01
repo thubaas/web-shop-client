@@ -1,1 +1,127 @@
-<p>signup works!</p>
+<ng-template appPlaceholder></ng-template>
+<div class="row">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <h4 class="my-3 text-center">Sign Up</h4>
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          id="email"
+          placeholder="test@test.com"
+        />
+
+        <div
+          *ngIf="
+            !signupForm.get('email')?.valid && signupForm.get('email')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid email is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="firstname" class="form-label">First Name</label>
+        <input
+          formControlName="firstname"
+          type="text"
+          class="form-control"
+          id="firstname"
+          placeholder="John"
+        />
+
+        <div
+          *ngIf="
+            !signupForm.get('firstname')?.valid &&
+            signupForm.get('firstname')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="lastname" class="form-label">Last Name</label>
+        <input
+          formControlName="lastname"
+          type="text"
+          class="form-control"
+          id="lastname"
+          placeholder="Doe"
+        />
+
+        <div
+          *ngIf="
+            !signupForm.get('lastname')?.valid &&
+            signupForm.get('lastname')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid name is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="password"
+        />
+
+        <div
+          *ngIf="
+            !signupForm.get('password')?.valid &&
+            signupForm.get('password')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid password is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="passwordConfirmation" class="form-label"
+          >Password Confirmation</label
+        >
+        <input
+          formControlName="passwordConfirmation"
+          type="password"
+          class="form-control"
+          id="passwordConfirmation"
+          placeholder="password"
+        />
+
+        <div
+          *ngIf="
+            !signupForm.get('passwordConfirmation')?.valid &&
+            signupForm.get('passwordConfirmation')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A matching confirmation is required
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary me-2"
+        [disabled]="signupForm.status !== 'VALID'"
+      >
+        Submit
+      </button>
+
+      <button type="reset" class="btn btn-danger ms-2" (click)="onCancel()">
+        Cancel
+      </button>
+    </form>
+  </div>
+  <div class="col-3"></div>
+</div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

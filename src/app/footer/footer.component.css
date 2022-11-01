@@ -1,7 +1,10 @@
 footer {
-  margin-top: 100px;
   background-color: #232f3e;
   font-size: 16px;
+  margin-top: 200px;
+  bottom: 0;
+
+
 }
 
 li {
