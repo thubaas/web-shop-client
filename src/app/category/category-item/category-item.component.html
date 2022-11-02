@@ -1,1 +1,21 @@
-<p>category-item works!</p>
+<div class="card h-100">
+    <img
+      class="card-img-top img-fluid"
+      [src]="category.imageUrl"
+      alt="Category Image"
+    />
+  
+    <div class="card-body">
+      <h5 class="card-title">{{ category.name }}</h5>
+      <p class="card-text font-italic">
+        {{ category.description.substring(0, 65) }}...
+      </p>
+    </div>
+  
+    <button
+      class="btn btn-outline-primary"
+      style="width: 4rem; margin: .5rem .5rem .5rem auto;" (click)="onEdit()"
+    >
+      Edit
+    </button>
+  </div>

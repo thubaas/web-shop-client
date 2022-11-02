@@ -1,1 +1,84 @@
-<p>category-edit works!</p>
+<ng-template appPlaceholder></ng-template>
+<div class="row">
+  <div class="col-3"></div>
+  <div class="col-6">
+    <h4 class="my-3 text-center">{{ formTitle }}</h4>
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input
+          formControlName="name"
+          type="text"
+          class="form-control"
+          id="name"
+          placeholder="Watches"
+        />
+
+        <div
+          *ngIf="
+            !categoryForm.get('name')?.valid &&
+            categoryForm.get('name')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid name is required
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input
+          formControlName="description"
+          type="text"
+          class="form-control"
+          id="description"
+          placeholder="All kinds of watches"
+        />
+
+        <div
+          *ngIf="
+            !categoryForm.get('description')?.valid &&
+            categoryForm.get('description')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid description is required
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="imageUrl" class="form-label">Image URL</label>
+        <input
+          formControlName="imageUrl"
+          type="url"
+          class="form-control"
+          id="imageUrl"
+          placeholder="https://image.url/the-image"
+        />
+
+        <div
+          *ngIf="
+            !categoryForm.get('imageUrl')?.valid &&
+            categoryForm.get('imageUrl')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid image URL is required
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-primary me-2"
+        [disabled]="categoryForm.status !== 'VALID'"
+      >
+        Submit
+      </button>
+
+      <button type="reset" class="btn btn-danger ms-2" (click)="onCancel()">
+        Cancel
+      </button>
+    </form>
+  </div>
+  <div class="col-3"></div>
+</div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

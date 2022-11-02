@@ -12,9 +12,17 @@ import { CartModule } from './cart/cart.module';
 import { WishlistComponent } from './wishlist/wishlist.component';
 import { HomeComponent } from './home/home.component';
 import { PaymentComponent } from './payment/payment.component';
+import { CoreModule } from './core.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, WishlistComponent, HomeComponent, PaymentComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    WishlistComponent,
+    HomeComponent,
+    PaymentComponent,
+  ],
   imports: [
     AppRoutingModule,
     BrowserModule,
@@ -23,6 +31,7 @@ import { PaymentComponent } from './payment/payment.component';
     FormsModule,
     ProductModule,
     SharedModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

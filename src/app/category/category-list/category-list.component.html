@@ -1,1 +1,18 @@
-<p>category-list works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 text-center">
+      <h3 class="pt-3">Our Categories</h3>
+      <div>
+        <button class="btn" (click)="onAddCategory()">Add Category</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      *ngFor="let category of categories; let i = index"
+      class="col-md-6 col-xl-4 col-12 pt-3 justify-content-around d-flex"
+    >
+      <app-category-item [category]="category" [index]="i"></app-category-item>
+    </div>
+  </div>
+</div>

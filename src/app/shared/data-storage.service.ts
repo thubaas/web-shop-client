@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { CategoryModel } from '../category/category.model';
 import { CategoryService } from '../category/category.service';
 
 @Injectable({
@@ -20,7 +21,7 @@ export class DataStorageService {
         tap((categories) =>
           this.categoryService.onCategoriesSuccess(categories)
         ),
-        catchError((errorRes) => this.categoryService.handleError(errorMes))
+        catchError((errorMes) => this.categoryService.handleError(errorMes))
       );
   }
 }

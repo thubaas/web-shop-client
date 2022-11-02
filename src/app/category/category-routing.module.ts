@@ -5,12 +5,13 @@ import { CategoryComponent } from './category.component';
 import { CategoryListComponent } from './category-list/category-list.component';
 import { CategoryResolverService } from './category-resolver.service';
 import { CategoryEditComponent } from './category-edit/category-edit.component';
+import { AuthGuard } from '../auth/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: CategoryComponent,
-    canActivate: [],
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
