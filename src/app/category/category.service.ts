@@ -85,6 +85,16 @@ export class CategoryService {
     return this.categories[index];
   }
 
+  getCategoryById(categoryId: number) {
+    return this.categories.find((category) => category.id === categoryId);
+  }
+
+  getCategoryByName(name: string) {
+    return this.categories.find(
+      (category) => category.name === name
+    );
+  }
+
   getCategories(): CategoryModel[] {
     return this.categories.slice();
   }
