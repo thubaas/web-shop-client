@@ -1,0 +1,31 @@
+.card{
+    width : 20rem;
+    height : 24rem;
+  }
+  
+  .card-img-top {
+    object-fit: cover;
+    height: 20rem;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  .card-title {
+    color: #484848;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  
+  .card-title:hover {
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 0.9rem;
+  }
+  
+  #edit-product {
+    float: right;
+  }

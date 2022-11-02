@@ -1,1 +1,26 @@
-<p>product-item works!</p>
+<div class="card h-100">
+    <img
+      class="card-img-top img-fluid"
+      [src]="product.imageUrl"
+      alt="Product Image"
+    />
+  
+    <div class="card-body">
+      <h5 class="card-title" role="button" (click)="showProductDetails()">
+        {{ product.name }}
+      </h5>
+      <p class="card-text"><sup>$</sup>{{ product.price }}</p>
+      <p class="card-text font-italic">
+        {{ product.description.substring(0, 65) }}...
+      </p>
+    </div>
+  
+    <button
+      class="btn btn-outline-primary"
+      style="width: 4rem; margin: 0.5rem 0.5rem 0.5rem auto"
+      (click)="onEdit()"
+      *ngIf="canEdit"
+    >
+      Edit
+    </button>
+  </div>

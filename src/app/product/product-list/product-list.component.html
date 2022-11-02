@@ -1,1 +1,18 @@
-<p>product-list works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h3 class="pt-3">Our Products</h3>
+        <div>
+          <button class="btn" (click)="onAddProduct()">Add Product</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div
+        *ngFor="let product of products; let i = index"
+        class="col-md-6 col-xl-4 col-12 pt-3 justify-content-around d-flex"
+      >
+        <app-product-item [product]="product" [index]="i"></app-product-item>
+      </div>
+    </div>
+  </div>

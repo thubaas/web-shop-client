@@ -1,1 +1,54 @@
-<p>product-details works!</p>
+<ng-template appPlaceholder></ng-template>
+<div class="container">
+  <div class="row pt-5">
+    <!--            Leave some empty space in left-->
+    <div class="col-md-1"></div>
+    <!--                Display the image in left side-->
+    <div class="col-md-4 col-12">
+      <img [src]="product.imageUrl" [alt]="product.name" class="img-fluid" />
+    </div>
+    <!-- Display product name category name and product description-->
+    <div class="col-md-6 col-12 pt-3 pt-md-0">
+      <h4>{{ product.name }}</h4>
+
+      <h6 class="category font-italic">{{ category.name }}</h6>
+
+      <p>{{ product.description }}</p>
+
+      <div class="d-flex flex-row justify-content-between">
+        <div class="input-group col-xs-2 p-0">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Quantity</span>
+          </div>
+          <input
+            class="form-control"
+            type="number"
+            #quantityRef
+            [defaultValue]="1"
+            step="1"
+          />
+        </div>
+
+        <div class="col-xs-2 p-0 mx-4">
+          <button class="btn btn-outline-primary" (click)="onAddToWishlist()"><i class="bi bi-bag-heart"></i></button>
+        </div>
+        <div class="col-xs-2 p-0 ">
+          <button class="btn btn-outline-primary" (click)="onAddToCart()"><i class="bi bi-cart-plus"></i></button>
+        </div>
+      </div>
+
+      <!-- Dummy placeholder features -->
+      <div class="features pt-3">
+        <h5><strong>Features</strong></h5>
+        <ul>
+          <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+          <li>Officia quas, officiis eius magni error magnam voluptatem</li>
+          <li>nesciunt quod! Earum voluptatibus quaerat dolorem doloribus</li>
+          <li>molestias ipsum ab, ipsa consectetur laboriosam soluta et</li>
+          <li>ut doloremque dolore corrupti, architecto iusto beatae.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ProductComponent } from './product.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductResolverService } from './product-resolver.service';
 import { ProductEditComponent } from './product-edit/product-edit.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   {
@@ -36,6 +37,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [CommonModule],
+  imports: [SharedModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class ProductRoutingModule {}
