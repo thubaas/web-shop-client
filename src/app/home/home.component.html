@@ -1,1 +1,58 @@
-<p>home works!</p>
+<div id="home">
+    <!-- Page Wrapper -->
+    <div id="background-div" class="page-holder bg-cover">
+      <!-- Home image as background of #background-div-->
+      <div class="container py-5">
+        <header class="text-center text-white py-5">
+          <h3 class="mb-4 rounded">
+            <a
+              href="#start-shopping"
+              class="bg-white px-2 py-2 rounded"
+              id="heading"
+              >Start Shopping</a
+            >
+          </h3>
+          <p id="content" class="lead mb-0 bg-dark p-1 rounded">
+            Welcome to E-Shop, go ahead and start shopping.
+          </p>
+        </header>
+      </div>
+    </div>
+    <!-- Categories-->
+    <div id="start-shopping" class="container">
+      <div class="row">
+        <div class="col-12 text-left">
+          <h2 class="text-center pt-3">Top Categories</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          *ngFor="let category of categories; let i = index"
+          class="col-md-6 col-xl-4 col-12 pt-3 justify-content-around d-flex"
+        >
+          <app-category-item
+            [category]="category"
+            [index]="i"
+          ></app-category-item>
+        </div>
+      </div>
+    </div>
+  
+    <hr class="mt-5 mx-5" />
+    <!-- Products-->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-left">
+          <h2 class="text-center pt-3">Top Products</h2>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          *ngFor="let product of products; let i = index"
+          class="col-md-6 col-xl-4 col-12 pt-3 justify-content-around d-flex"
+        >
+          <app-product-item [product]="product" [index]="i"></app-product-item>
+        </div>
+      </div>
+    </div>
+  </div>

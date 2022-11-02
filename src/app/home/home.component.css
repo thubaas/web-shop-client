@@ -1,0 +1,27 @@
+.page-holder {
+    min-height: 100vh;
+  }
+  
+  .bg-cover {
+    background-size: cover !important;
+  }
+  
+  #background-div {
+    background: url(/assets/images/home.jpg);
+  }
+  
+  #heading {
+    text-decoration: none;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    opacity: 0.8;
+    font-family: "Josefin Sans", sans-serif;
+  }
+  
+  #content {
+    opacity: 0.8;
+  }
+  
+  h2 {
+    font-family: "Josefin Sans", sans-serif;
+  }
