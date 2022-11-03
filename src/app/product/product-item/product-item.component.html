@@ -1,4 +1,4 @@
-<div class="card h-100">
+<!-- <div class="card h-100">
     <img
       class="card-img-top img-fluid"
       [src]="product.imageUrl"
@@ -23,4 +23,44 @@
     >
       Edit
     </button>
+  </div> -->
+
+<!-- <div class="card">
+  <img
+    class="card-img-top img-fluid"
+    [src]="product.imageUrl"
+    alt="Product Image"
+  /> -->
+
+<div class="card">
+  <img class="product-image" [src]="product.imageUrl" alt="Product Image" />
+
+  <div class="card-body">
+    <h5 class="card-title" role="button" (click)="showProductDetails()">
+      {{ product.name }}
+    </h5>
+    <p class="card-text"><sup>$</sup>{{ product.price }}</p>
+    <!-- <p class="card-text font-italic">
+      {{ product.description.substring(0, 65) }}...
+    </p> -->
   </div>
+
+  <div class="card-actions">
+    <button class="btn btn-outline-primary" style="" (click)="onEdit()">
+      <i class="bi bi-cart-plus"></i>
+    </button>
+
+    <button class="btn btn-outline-primary" style="" (click)="onEdit()">
+      <i class="bi bi-suit-heart"></i>
+    </button>
+
+    <button
+      class="btn btn-outline-primary"
+      style=""
+      (click)="onEdit()"
+      *ngIf="canEdit"
+    >
+      <i class="bi bi-pencil"></i>
+    </button>
+  </div>
+</div>
