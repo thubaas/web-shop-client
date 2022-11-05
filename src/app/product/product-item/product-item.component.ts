@@ -1,10 +1,14 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { CartService } from 'src/app/cart/cart.service';
 import { CategoryModel } from 'src/app/category/category.model';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { PlaceholderDirective } from 'src/app/shared/placeholder.directive';
+import { WishlistModel } from 'src/app/wishlist/wishlist.model';
+import { WishlistService } from 'src/app/wishlist/wishlist.service';
 import { ProductModel } from '../product.model';
+import { ProductService } from '../product.service';
 
 @Component({
   selector: 'app-product-item',
@@ -20,12 +24,16 @@ export class ProductItemComponent implements OnInit {
   canEdit: boolean;
   success: boolean = false;
   loading: boolean;
-  wishlistObservable: Observable<ApiResponse>;
+  wishlistObservable: Observable<Boolean>;
   cartObservable: Observable<CategoryModel>;
 
-
-
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private productService: ProductService,
+    private wishlistService: WishlistService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.canEdit = this.router.url === '/admin/products';
@@ -43,12 +51,9 @@ export class ProductItemComponent implements OnInit {
 
   onAddToWishList() {
     this.loading = true;
-    const quantity = this.quantityInput.nativeElement.value;
-    const product = this.productService.getProduct(this.id);
-    this.wishlistObservable = this.wishlistService.addToWishlist(
-      product,
-      quantity
-    );
+    const product = this.productService.getProduct(this.index);
+    const wishlist: WishlistModel = { product };
+    this.wishlistObservable = this.wishlistService.addToWishlist(wishlist);
     this.wishlistObservable.subscribe({
       next: (resData) => this.onSuccess(resData),
       error: (errorData) => this.onError(errorData),
@@ -66,7 +71,7 @@ export class ProductItemComponent implements OnInit {
     });
   }
 
-  onSuccess(resData: ApiResponse) {
+  onSuccess(resData: any) {
     this.success = true;
     this.loading = false;
     this.showAlert('Product Added', 'bi bi-check-circle text-success');
@@ -95,6 +100,4 @@ export class ProductItemComponent implements OnInit {
       this.closeSubscription.unsubscribe();
     }
   }
-
-
 }
