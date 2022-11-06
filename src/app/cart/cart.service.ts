@@ -12,10 +12,10 @@ import { CartModel } from './cart.model';
 export class CartService {
 
   cart: CartModel;
-  cartChanged = new Subject<CartItemModel[]>
+  cartChanged = new Subject<CartItemModel[]>();
   cartItems: CartItemModel[] = [];
   totalCost: number = 0;
-  const baseUrl = environment.baseUrl;
+  baseUrl = environment.baseUrl;
   
   constructor(private http:HttpClient) { }
 
