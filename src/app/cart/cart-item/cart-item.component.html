@@ -1,1 +1,32 @@
-<p>cart-item works!</p>
+<ng-template appPlaceholder></ng-template>
+<div class="row">
+  <div class="col-2"></div>
+
+  <div class="col-md-3 embed-responsive embed-responsive-16by9">
+    <img
+      [src]="cartItem.imageUrl"
+      class="w-100 card-img-top embed-responsive-item"
+    />
+  </div>
+
+  <div class="col-md-5 px-3">
+    <div class="card-block px-3">
+      <h6 class="card-title">
+        {{ cartItem.productName }}
+      </h6>
+      <p id="item-price" class="mb-0 font-weight-bold">
+        $ {{ cartItem.price }} per unit
+      </p>
+      <p id="item-quantity" class="mb-0">Quantity : {{ cartItem.quantity }}</p>
+      <p id="item-total-price" class="mb-0">
+        Total :
+        <span class="font-weight-bold">
+          $ {{ cartItem.price * cartItem.quantity }}</span
+        >
+      </p>
+    </div>
+    <button class="btn btn-primary my-5" (click)="onRemoveFromCart()">Remove from Cart</button>
+  </div>
+  <div class="col-2"></div>
+</div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>
