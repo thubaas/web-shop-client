@@ -1,0 +1,26 @@
+h4, h5 {
+    font-family: 'Roboto', sans-serif;
+    color: #484848;
+    font-weight: 700;
+  }
+  
+  .embed-responsive .card-img-top {
+    object-fit: cover;
+  }
+  
+  #item-price {
+    color: #232F3E;
+  }
+  
+  #item-quantity{
+    float: left;
+  }
+  
+  #item-total-price {
+    float: right;
+  }
+  
+  .confirm {
+    font-weight: bold;
+    font-size: larger;
+  }

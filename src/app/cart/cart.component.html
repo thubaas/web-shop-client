@@ -1,1 +1,21 @@
-<p>cart works!</p>
+<div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h3 class="pt-3">Shopping cart</h3>
+      </div>
+    </div>
+  
+    <app-cart-item
+      *ngFor="let cartItem of cartItems; let i = index"
+      [cartItem]="cartItem"
+      [index]="i"
+    ></app-cart-item>
+  
+    <hr />
+    <div class="total-cost pt-2 text-right">
+      <h5>Total : $ {{ totalCost }}</h5>
+      <button (click)="order()" [disabled]="!canOrder" type="button" class="btn btn-primary confirm">
+        Confirm Order
+      </button>
+    </div>
+  </div>
