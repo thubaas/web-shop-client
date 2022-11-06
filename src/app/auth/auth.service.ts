@@ -7,12 +7,13 @@ import { SigninRespModel } from './signin/signin-resp.model';
 import { SigninModel } from './signin/signin.model';
 import { SignupRespModel } from './signup/signup-resp.model';
 import { SignupModel } from './signup/signup.model';
+import { UserModel } from './user.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  authToken = new BehaviorSubject<string | null>(null);
+  user = new BehaviorSubject<UserModel | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -38,25 +39,27 @@ export class AuthService {
   }
 
   autoSignin() {
-    let token = localStorage.getItem('authToken');
-    if (token !== null) {
-      this.authToken.next(token);
+    let userJSON = localStorage.getItem('user');
+    if (userJSON !== null) {
+      let userData = JSON.parse(userJSON);
+      this.user.next(userData.token);
     }
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem('authToken') !== null;
+    return localStorage.getItem('user') !== null;
   }
 
   signout() {
-    localStorage.removeItem('authToken');
-    this.authToken.next(null);
+    localStorage.removeItem('user');
+    this.user.next(null);
   }
 
   private handleAuth(signinRes: SigninRespModel) {
-    let token = signinRes.token;
-    localStorage.setItem('authToken', token);
-    this.authToken.next(token);
+    let userData: UserModel = {'token': signinRes.token, 'id': signinRes.id};
+    let userJSON = JSON.stringify(userData);
+    localStorage.setItem('user', userJSON);
+    this.user.next(userData);
   }
 
   private handleError(errorRes: HttpErrorResponse) {
