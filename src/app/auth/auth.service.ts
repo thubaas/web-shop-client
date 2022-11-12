@@ -42,7 +42,7 @@ export class AuthService {
     let userJSON = localStorage.getItem('user');
     if (userJSON !== null) {
       let userData = JSON.parse(userJSON);
-      this.user.next(userData.token);
+      this.user.next(userData);
     }
   }
 
