@@ -6,18 +6,18 @@
     class="wishlist-img child-item"
   />
   <div class="child-item">
-    <span class="name">{{ wishlist.product.name }}</span>
-    <span class="card-text"><sup>$</sup>{{ wishlist.product.price }}</span>
+    <div class="name">{{ wishlist.product.name }}</div>
+    <div class="card-text"><sup>$</sup>{{ wishlist.product.price }}</div>
+  </div>
 
-    <div class="card-actions">
-      <button class="btn btn-outline-primary" style="" (click)="onMoveToCart()">
-        <i class="bi bi-sign-turn-slight-right"></i>
-      </button>
+  <div class="child-item">
+    <button class="btn btn-outline-primary" style="" (click)="onMoveToCart()">
+      Move to Cart
+    </button>
 
-      <button class="btn btn-outline-danger" style="" (click)="onRemove()">
-        <i class="bi bi-trash3"></i>
-      </button>
-    </div>
+    <button class="btn btn-outline-danger" style="" (click)="onRemove()">
+      Remove
+    </button>
   </div>
 </div>
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>
