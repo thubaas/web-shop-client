@@ -1,1 +1,23 @@
-<p>wishlist-item works!</p>
+<ng-template appPlaceholder></ng-template>
+<div class="wishlist-item">
+  <img
+    [src]="wishlist.product.imageUrl"
+    alt="product_img"
+    class="wishlist-img child-item"
+  />
+  <div class="child-item">
+    <span class="name">{{ wishlist.product.name }}</span>
+    <span class="card-text"><sup>$</sup>{{ wishlist.product.price }}</span>
+
+    <div class="card-actions">
+      <button class="btn btn-outline-primary" style="" (click)="onMoveToCart()">
+        <i class="bi bi-sign-turn-slight-right"></i>
+      </button>
+
+      <button class="btn btn-outline-danger" style="" (click)="onRemove()">
+        <i class="bi bi-trash3"></i>
+      </button>
+    </div>
+  </div>
+</div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

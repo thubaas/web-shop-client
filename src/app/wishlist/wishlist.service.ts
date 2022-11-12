@@ -23,6 +23,11 @@ export class WishlistService {
     return this.wishlists.slice();
   }
 
+  updateList(index: number) {
+    this.wishlists.splice(index, 1);
+    this.wishlistChanged.next(this.wishlists.slice());
+  }
+
   fetchWishlists() {
     return this.http
       .get<WishlistModel[]>(`${environment.baseUrl}/wishlists/`)

@@ -1,0 +1,37 @@
+.wishlist-item {
+    display: flex;
+    width: 350px;
+    height: 100px;
+    border: 0.1px solid #484848;
+    border-radius: 5px;
+}
+
+.child-item {
+margin: 0rem;
+}
+
+.child-item:nth-child(2) {
+    padding: 0.5rem;
+
+}
+
+.card-text {
+    margin: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+
+.wishlist-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+}
+
+.name {
+    color: #484848;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.btn {margin: 0.5rem;}
