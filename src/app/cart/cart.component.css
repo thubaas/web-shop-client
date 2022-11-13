@@ -1,0 +1,10 @@
+.cart-footer > span {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+
+.cart-footer > span,
+.cart-footer > button {
+  margin: 2rem;
+}

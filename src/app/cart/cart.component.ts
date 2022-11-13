@@ -31,6 +31,7 @@ export class CartComponent implements OnInit {
   }
 
   order() {
+    console.log('Checkout : ', this.cartItems);
     // let checkoutItems: CheckoutItemModel[] = this.cartItems.map(
     //   (item) =>
     //     new CheckoutItemModel(

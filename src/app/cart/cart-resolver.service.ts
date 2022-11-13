@@ -18,7 +18,7 @@ export class CartResolverService implements Resolve<CartModel> {
     state: RouterStateSnapshot
   ): CartModel | Observable<CartModel> | Promise<CartModel> {
     let cart = this.cartService.getCart();
-    if (cart === null) {
+    if (cart === undefined) {
       return this.cartService.fetchCart();
     }
     return cart;

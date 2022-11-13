@@ -37,11 +37,11 @@ export class CartService {
     if (userJSON !== null) {
       user = JSON.parse(userJSON);
     }
-    return this.http.get<CartModel>(`${this.baseUrl}/${user.id}/`).pipe(
+    return this.http.get<CartModel>(`${this.baseUrl}/carts/`).pipe(
       catchError((errorRes) => this.handleError(errorRes)),
       tap((resData) => {
         this.setCart(resData);
-        this.setCartItems(resData.cartItems);
+        this.setCartItems(resData.items);
       })
     );
   }
@@ -69,7 +69,7 @@ export class CartService {
       .pipe(
         catchError((errorRes) => this.handleError(errorRes)),
         tap((resData) => {
-          this.cart.cartItems.slice(index, 1);
+          this.cart.items.slice(index, 1);
           console.log(resData);
         })
       );
