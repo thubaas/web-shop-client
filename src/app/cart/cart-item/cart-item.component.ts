@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { PlaceholderDirective } from 'src/app/shared/placeholder.directive';
@@ -16,12 +23,15 @@ export class CartItemComponent implements OnInit, OnDestroy {
   @Input() index: number;
   loading: boolean = false;
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
+  @ViewChild('quantityRef', { static: false }) quantityInput: ElementRef;
   private closeSubscription: Subscription;
   private cartObservable: Observable<CartModel>;
 
   constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // console.log('Cart Item : ', this.cartItem);
+  }
 
   onRemoveFromCart() {
     this.loading = true;
@@ -33,6 +43,11 @@ export class CartItemComponent implements OnInit, OnDestroy {
       next: (resData) => this.onSuccess(resData),
       error: (errRes) => this.onError(errRes),
     });
+  }
+
+  onQuantityChange() {
+    const quantity = this.quantityInput.nativeElement.value;
+    this.cartItem.quantity = quantity;
   }
 
   onSuccess(resData: any) {
