@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  pk_test: `pk_test_51H7SueBwZUYCoNIIwwem3vIZjIwybKfRzeIeGJbiVJpwUAjrVEAq7NlrmPIiAtbGQZwGy5UvlAeEIuoSb8jvFPs500uDqcDNFB`,
   baseUrl: 'http://localhost:8080',
 };
 
