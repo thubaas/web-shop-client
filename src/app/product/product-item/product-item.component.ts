@@ -69,10 +69,7 @@ export class ProductItemComponent implements OnInit {
 
     let cartItem: CartItemModel = {
       quantity: 1,
-      productId: product.id!,
-      productName: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl,
+      product: { ...product },
     };
 
     this.cartObservable = this.cartService.addToCart(cartItem);
