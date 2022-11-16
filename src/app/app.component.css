@@ -93,3 +93,8 @@ body {
   left: 2em;
   transition: left 2s;
 }
+
+.main-container {
+  width: 88%;
+  margin: auto;
+}

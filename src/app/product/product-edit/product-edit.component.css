@@ -1,0 +1,30 @@
+.row {
+  margin: auto;
+}
+
+.form-btn {
+  width: 150px;
+  height: 40px;
+  display: inline-block;
+  border-radius: 5px;
+  border: none;
+  margin: auto;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.form-btn-positive {
+  background-color: #072f5f;
+  color: #ffa700;
+  margin-right: 1em;
+}
+
+.form-btn-negative {
+  background-color: rgb(83, 2, 2);
+  color: #ffa700;
+  margin-left: 1em;
+}
+
+.form-btn:hover {
+  color: #ffa6006b;
+}
