@@ -29,6 +29,7 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   category: CategoryModel;
   success: boolean;
   loading: boolean;
+  total: number;
   // wishlistObservable: Observable<WishlistModel>;
   // cartObservable: Observable<CartModel>;
 
@@ -52,6 +53,11 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   onAddToWishlist() {}
 
   onAddToCart() {}
+
+  onQuantityChange() {
+    console.log('Quantity Changed : ', this.quantityInput.nativeElement.value);
+    this.total = this.quantityInput.nativeElement.value * this.product.price;
+  }
 
   onSuccess(resData: ProductModel) {
     this.success = true;

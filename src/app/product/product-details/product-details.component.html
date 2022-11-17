@@ -1,13 +1,12 @@
 <ng-template appPlaceholder></ng-template>
-<div class="container">
+<!-- <div class="container">
   <div class="row pt-5">
-    <!--            Leave some empty space in left-->
     <div class="col-md-1"></div>
-    <!--                Display the image in left side-->
+
     <div class="col-md-4 col-12">
       <img [src]="product.imageUrl" [alt]="product.name" class="img-fluid" />
     </div>
-    <!-- Display product name category name and product description-->
+
     <div class="col-md-6 col-12 pt-3 pt-md-0">
       <h4>{{ product.name }}</h4>
 
@@ -30,14 +29,17 @@
         </div>
 
         <div class="col-xs-2 p-0 mx-4">
-          <button class="btn btn-outline-primary" (click)="onAddToWishlist()"><i class="bi bi-bag-heart"></i></button>
+          <button class="btn btn-outline-primary" (click)="onAddToWishlist()">
+            <i class="bi bi-bag-heart"></i>
+          </button>
         </div>
-        <div class="col-xs-2 p-0 ">
-          <button class="btn btn-outline-primary" (click)="onAddToCart()"><i class="bi bi-cart-plus"></i></button>
+        <div class="col-xs-2 p-0">
+          <button class="btn btn-outline-primary" (click)="onAddToCart()">
+            <i class="bi bi-cart-plus"></i>
+          </button>
         </div>
       </div>
 
-      <!-- Dummy placeholder features -->
       <div class="features pt-3">
         <h5><strong>Features</strong></h5>
         <ul>
@@ -50,5 +52,58 @@
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="details-container">
+  <img
+    [src]="product.imageUrl"
+    alt="product_img"
+    class="details-child details-img"
+  />
+  <div class="details-child">
+    <div class="product-name">Lorem Ipsum</div>
+    <div class="price-quantity">
+      <div class="price-quantity-row">
+        <span class="price-quantity-child"><sup>$</sup>11.11</span>
+
+        <div class="price-quantity-child quantity-wrapper">
+          <label for="quantity">Quantity</label>
+          <br />
+
+          <input
+            type="number"
+            name="quantity"
+            id="quantity"
+            [defaultValue]="1"
+            step="1"
+            value="10"
+            (change)="onQuantityChange()"
+            #quantityRef
+          />
+        </div>
+      </div>
+
+      <div class="description">
+        Lorem ipsum dolor sit amet consectetur adipisicing eli Officia quas,
+        officiis eius magni error magnam voluptatem nesciunt quod! Earum
+        voluptatibus quaerat dolorem doloribus molestias ipsum ab, ipsa
+        consectetur laboriosam soluta et ut doloremque dolore corrupti,
+        architecto iusto beatae.
+      </div>
+
+      <div class="total">
+        <span class="label">Total</span>
+        <span class="number"><sup>$</sup>{{ total }}</span>
+      </div>
+
+      <div class="btn-actions">
+        <button class="btn-cart">Add to Cart</button>
+        <button class="btn-wishlist" style="" (click)="onAddToWishlist()">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
+
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

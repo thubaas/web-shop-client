@@ -38,7 +38,9 @@
 
   <div class="product-text">
     <div class="product-price"><sup>$</sup>{{ product.price }}</div>
-    <div class="product-name">{{ product.name }}</div>
+    <div class="product-name" (click)="showProductDetails()">
+      {{ product.name }}
+    </div>
   </div>
   <div class="card-actions">
     <button class="btn-cart" style="" (click)="onAddToCart()">
@@ -48,6 +50,5 @@
     <button class="btn-wishlist" style="" (click)="onAddToWishList()">
       <i class="bi bi-heart-fill"></i>
     </button>
-
   </div>
 </div>

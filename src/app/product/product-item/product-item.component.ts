@@ -43,7 +43,7 @@ export class ProductItemComponent implements OnInit {
 
   showProductDetails() {
     console.log('Show product details');
-    this.router.navigate([`${this.index}/edit`], { relativeTo: this.route });
+    this.router.navigate([`${this.index}`], { relativeTo: this.route });
   }
 
   onEdit() {
