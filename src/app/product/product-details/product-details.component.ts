@@ -7,10 +7,15 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { CartItemModel } from 'src/app/cart/cart-item/cart-item.model';
+import { CartModel } from 'src/app/cart/cart.model';
+import { CartService } from 'src/app/cart/cart.service';
 import { CategoryModel } from 'src/app/category/category.model';
 import { CategoryService } from 'src/app/category/category.service';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { PlaceholderDirective } from 'src/app/shared/placeholder.directive';
+import { WishlistModel } from 'src/app/wishlist/wishlist.model';
+import { WishlistService } from 'src/app/wishlist/wishlist.service';
 import { ProductModel } from '../product.model';
 import { ProductService } from '../product.service';
 
@@ -23,21 +28,21 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   @ViewChild('quantityRef', { static: false }) quantityInput: ElementRef;
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
   private closeSubscription: Subscription;
-
   product: ProductModel;
   id: number;
   category: CategoryModel;
-  success: boolean;
   loading: boolean;
   total: number;
-  // wishlistObservable: Observable<WishlistModel>;
-  // cartObservable: Observable<CartModel>;
+  wishlistObservable: Observable<WishlistModel>;
+  cartObservable: Observable<CartModel>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private categoryService: CategoryService,
-    private productService: ProductService
+    private productService: ProductService,
+    private cartService: CartService,
+    private wishlistService: WishlistService
   ) {}
 
   ngOnInit(): void {
@@ -47,20 +52,40 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
       this.category = this.categoryService.getCategoryById(
         this.product.categoryId!
       )!;
+      this.total = this.product.price;
     });
   }
 
-  onAddToWishlist() {}
+  onAddToWishlist() {
+    this.loading = true;
+    this.wishlistObservable = this.wishlistService.addToWishlist(this.product);
+    this.wishlistObservable.subscribe({
+      next: (resData) => this.onSuccess(resData),
+      error: (errorRes) => this.onError(errorRes),
+    });
+  }
 
-  onAddToCart() {}
+  onAddToCart() {
+    this.loading = true;
+    let cartItem: CartItemModel = {
+      product: this.product,
+      productId: this.product.id,
+      quantity: this.quantityInput.nativeElement.value,
+    };
+    console.log('Cart Product : ', this.product);
+    this.cartObservable = this.cartService.addToCart(cartItem);
+    this.cartObservable.subscribe({
+      next: (resData) => this.onSuccess(resData),
+      error: (errorRes) => this.onError(errorRes),
+    });
+  }
 
   onQuantityChange() {
     console.log('Quantity Changed : ', this.quantityInput.nativeElement.value);
     this.total = this.quantityInput.nativeElement.value * this.product.price;
   }
 
-  onSuccess(resData: ProductModel) {
-    this.success = true;
+  onSuccess(resData: any) {
     this.loading = false;
     this.showAlert('Product Added', 'bi bi-check-circle text-success');
   }
