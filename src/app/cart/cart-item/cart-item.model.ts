@@ -7,6 +7,6 @@ export interface CartItemModel {
     productName: string;
     imageUrl: string;
     price: number;
-    cartId: number;
+    cartId?: number;
 }
 
