@@ -1,32 +1,40 @@
 <ng-template appPlaceholder></ng-template>
-<div class="row">
-  <div class="col-2"></div>
+<div class="wishlist-item">
+  <img
+    [src]="cartItem.product.imageUrl"
+    alt="product_img"
+    class="wishlist-img child-item"
+  />
+  <div class="child-item">
+    <div class="name">{{ cartItem.product.name }}</div>
+    <div class="card-text"><sup>$</sup>{{ cartItem.product.price }}</div>
+  </div>
 
-  <div class="col-md-3 embed-responsive embed-responsive-16by9">
-    <img
-      [src]="cartItem.imageUrl"
-      class="w-100 card-img-top embed-responsive-item"
+  <div class="child-item">
+    <div id="quantity-label">Quantity</div>
+    <!-- <div id="cart-item-quantity">
+      {{ cartItem.quantity }}
+    </div> -->
+    <input
+      class="form-control"
+      type="number"
+      id="cart-item-quantity"
+      min="1"
+      [defaultValue]="1"
+      step="1"
+      #quantityRef
+      (change)="onQuantityChange()"
     />
   </div>
 
-  <div class="col-md-5 px-3">
-    <div class="card-block px-3">
-      <h6 class="card-title">
-        {{ cartItem.productName }}
-      </h6>
-      <p id="item-price" class="mb-0 font-weight-bold">
-        $ {{ cartItem.price }} per unit
-      </p>
-      <p id="item-quantity" class="mb-0">Quantity : {{ cartItem.quantity }}</p>
-      <p id="item-total-price" class="mb-0">
-        Total :
-        <span class="font-weight-bold">
-          $ {{ cartItem.price * cartItem.quantity }}</span
-        >
-      </p>
-    </div>
-    <button class="btn btn-primary my-5" (click)="onRemoveFromCart()">Remove from Cart</button>
+  <div class="child-item">
+    <button
+      class="btn btn-outline-danger"
+      style=""
+      (click)="onRemoveFromCart()"
+    >
+      Remove
+    </button>
   </div>
-  <div class="col-2"></div>
 </div>
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

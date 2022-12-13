@@ -1,6 +1,8 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
+import { CartItemModel } from 'src/app/cart/cart-item/cart-item.model';
+import { CartModel } from 'src/app/cart/cart.model';
 import { CartService } from 'src/app/cart/cart.service';
 import { CategoryModel } from 'src/app/category/category.model';
 import { AlertComponent } from 'src/app/shared/alert/alert.component';
@@ -25,7 +27,7 @@ export class ProductItemComponent implements OnInit {
   success: boolean = false;
   loading: boolean;
   wishlistObservable: Observable<Boolean>;
-  cartObservable: Observable<CategoryModel>;
+  cartObservable: Observable<CartModel>;
 
   constructor(
     private route: ActivatedRoute,
@@ -51,20 +53,26 @@ export class ProductItemComponent implements OnInit {
 
   onAddToWishList() {
     this.loading = true;
-    const product = this.productService.getProduct(this.index);
-    const wishlist: WishlistModel = { product };
-    this.wishlistObservable = this.wishlistService.addToWishlist(wishlist);
-    this.wishlistObservable.subscribe({
-      next: (resData) => this.onSuccess(resData),
-      error: (errorData) => this.onError(errorData),
-    });
+    // const product = this.productService.getProduct(this.index);
+    // const wishlist: WishlistModel = { product };
+    // this.wishlistObservable = this.wishlistService.addToWishlist(wishlist);
+    // this.wishlistObservable.subscribe({
+    //   next: (resData) => this.onSuccess(resData),
+    //   error: (errorData) => this.onError(errorData),
+    // });
   }
 
   onAddToCart() {
     this.loading = true;
-    const quantity = this.quantityInput.nativeElement.value;
-    const product = this.productService.getProduct(this.id);
-    this.cartObservable = this.cartService.addToCart(product.id!, quantity);
+    // const quantity = this.quantityInput.nativeElement.value;
+    const product = this.productService.getProduct(this.index);
+
+    let cartItem: CartItemModel = {
+      quantity: 1,
+      product: { ...product },
+    };
+
+    this.cartObservable = this.cartService.addToCart(cartItem);
     this.cartObservable.subscribe({
       next: (resData) => this.onSuccess(resData),
       error: (errData) => this.onError(errData),

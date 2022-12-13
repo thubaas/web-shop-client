@@ -13,6 +13,7 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { HomeComponent } from './home/home.component';
 import { PaymentComponent } from './payment/payment.component';
 import { CoreModule } from './core.module';
+import { WishlistItemComponent } from './wishlist/wishlist-item/wishlist-item.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CoreModule } from './core.module';
     WishlistComponent,
     HomeComponent,
     PaymentComponent,
+    WishlistItemComponent,
   ],
   imports: [
     AppRoutingModule,

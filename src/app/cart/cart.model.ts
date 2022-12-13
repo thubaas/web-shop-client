@@ -4,6 +4,6 @@ export interface CartModel {
     id: number;
     totalCost: number;
     creationDate: Date;
-    cartItems: CartItemModel[];
+    items: CartItemModel[];
     userId: number;
 }

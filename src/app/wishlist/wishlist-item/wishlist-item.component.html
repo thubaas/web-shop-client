@@ -1,0 +1,23 @@
+<ng-template appPlaceholder></ng-template>
+<div class="wishlist-item">
+  <img
+    [src]="wishlist.product.imageUrl"
+    alt="product_img"
+    class="wishlist-img child-item"
+  />
+  <div class="child-item">
+    <div class="name">{{ wishlist.product.name }}</div>
+    <div class="card-text"><sup>$</sup>{{ wishlist.product.price }}</div>
+  </div>
+
+  <div class="child-item">
+    <button class="btn btn-outline-primary" style="" (click)="onMoveToCart()">
+      Move to Cart
+    </button>
+
+    <button class="btn btn-outline-danger" style="" (click)="onRemove()">
+      Remove
+    </button>
+  </div>
+</div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

@@ -8,26 +8,6 @@
 
 .child-item {
   margin: 0.5rem 1rem;
-  width: 8rem;
-}
-
-/* #cart-item-quantity {
-  margin: 0.5rem;
-  font-size: 1.5rem;
-  font-weight: 400;
-} */
-
-#quantity-label {
-  font-size: 1rem;
-}
-
-#cart-item-quantity {
-  margin: 0.5rem 0rem;
-  width: 80px;
-  font-size: 1rem;
-  font-weight: 400;
-  border: none;
-  outline: none;
 }
 
 .wishlist-img {

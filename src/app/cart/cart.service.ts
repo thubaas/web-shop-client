@@ -7,39 +7,46 @@ import { CartItemModel } from './cart-item/cart-item.model';
 import { CartModel } from './cart.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CartService {
-
   cart: CartModel;
   cartChanged = new Subject<CartItemModel[]>();
   cartItems: CartItemModel[] = [];
   totalCost: number = 0;
   baseUrl = environment.baseUrl;
   
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {}
 
   getCartItems() {
     return this.cartItems.slice();
   }
 
   addToCart(cartItem: CartItemModel) {
-    return this.http.post<Boolean>(`${this.baseUrl}/carts/`, cartItem)
-    .pipe(catchError(errorRes => this.handleError(errorRes)), tap(resData => {
-      console.log(resData);
-    }))
+    return this.http.post<CartModel>(`${this.baseUrl}/carts/`, cartItem).pipe(
+      catchError((errorRes) => this.handleError(errorRes)),
+      tap((resData) => {
+        console.log(resData);
+      })
+    );
   }
 
   fetchCart() {
-    return this.http.get<CartModel>(`${this.baseUrl}/${user.userId}/`)
-    .pipe(catchError(errorRes => this.handleError(errorRes)),
-    tap(resData => {
-      this.setCart(resData);
-      this.setCartItems(resData.cartItems);
-    }))
+    const userJSON = localStorage.getItem('user');
+    let user;
+    if (userJSON !== null) {
+      user = JSON.parse(userJSON);
+    }
+    return this.http.get<CartModel>(`${this.baseUrl}/carts/`).pipe(
+      catchError((errorRes) => this.handleError(errorRes)),
+      tap((resData) => {
+        this.setCart(resData);
+        this.setCartItems(resData.items);
+      })
+    );
   }
 
-  setCart(cart:CartModel) {
+  setCart(cart: CartModel) {
     this.cart = cart;
   }
 
@@ -57,16 +64,19 @@ export class CartService {
   }
 
   removeFromCart(index: number, cartItem: CartItemModel) {
-    return this.http.put<CartModel>(`${environment.baseUrl}/${cartItem.id}/`, cartItem).pipe(
-      catchError(errorRes => this.handleError(errorRes)), tap(resData => {
-        this.cart.cartItems.slice(index, 1);
-        console.log(resData);
-      })
-    )
+    return this.http
+      .put<CartModel>(`${environment.baseUrl}/${cartItem.id}/`, cartItem)
+      .pipe(
+        catchError((errorRes) => this.handleError(errorRes)),
+        tap((resData) => {
+          this.cart.items.slice(index, 1);
+          console.log(resData);
+        })
+      );
   }
 
   handleError(errRes: any) {
     console.log(errRes);
-    return throwError(() => new Error(errRes))
+    return throwError(() => new Error(errRes));
   }
 }
