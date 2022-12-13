@@ -43,7 +43,7 @@ export class ProductItemComponent implements OnInit {
 
   showProductDetails() {
     console.log('Show product details');
-    this.router.navigate([`${this.index}/edit`], { relativeTo: this.route });
+    this.router.navigate([`${this.index}`], { relativeTo: this.route });
   }
 
   onEdit() {
@@ -69,7 +69,11 @@ export class ProductItemComponent implements OnInit {
 
     let cartItem: CartItemModel = {
       quantity: 1,
-      product: { ...product },
+      id: this.index,
+      productId: product.id!,
+      productName: product.name,
+      imageUrl: product.imageUrl,
+      price: product.price,
     };
 
     this.cartObservable = this.cartService.addToCart(cartItem);

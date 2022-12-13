@@ -1,13 +1,13 @@
 <ng-template appPlaceholder></ng-template>
 <div class="wishlist-item">
   <img
-    [src]="cartItem.product.imageUrl"
+    [src]="cartItem.imageUrl"
     alt="product_img"
     class="wishlist-img child-item"
   />
   <div class="child-item">
-    <div class="name">{{ cartItem.product.name }}</div>
-    <div class="card-text"><sup>$</sup>{{ cartItem.product.price }}</div>
+    <div class="name">{{ cartItem.productName }}</div>
+    <div class="card-text"><sup>$</sup>{{ cartItem.price }}</div>
   </div>
 
   <div class="child-item">

@@ -5,7 +5,7 @@
     <h4 class="my-3 text-center">{{ formTitle }}</h4>
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
       <div class="mb-3">
-        <label for="category">Category</label>
+        <label class="form-label" for="category">Category</label>
         <select
           name="category"
           id="category"
@@ -33,8 +33,7 @@
 
         <div
           *ngIf="
-            !productForm.get('name')?.valid &&
-            productForm.get('name')?.touched
+            !productForm.get('name')?.valid && productForm.get('name')?.touched
           "
           class="alert alert-danger"
         >
@@ -107,6 +106,126 @@
 
       <button
         type="submit"
+        class="form-btn form-btn-positive"
+        [disabled]="productForm.status !== 'VALID'"
+      >
+        Submit
+      </button>
+
+      <button type="reset" class="form-btn form-btn-negative" (click)="onCancel()">
+        Cancel
+      </button>
+    </form>
+  </div>
+  <div class="col-3"></div>
+</div>
+
+<!-- <div class="product-edit-wrapper">
+    <h4 class="heading">{{ formTitle }}</h4>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+      <div class="form-field">
+        <label for="category">Category</label>
+        <select
+          name="category"
+          id="category"
+          formControlName="category"
+          class="form-control"
+        >
+          <option
+            *ngFor="let category of categoryValues; let i = index"
+            [value]="category"
+          >
+            {{ category }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="name" class="form-label">Name</label>
+        <input
+          formControlName="name"
+          type="text"
+          class="form-control"
+          id="productName"
+          placeholder="Watch"
+        />
+
+        <div
+          *ngIf="
+            !productForm.get('name')?.valid &&
+            productForm.get('name')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid name is required
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="description" class="form-label">Description</label>
+        <input
+          formControlName="description"
+          type="text"
+          class="form-control"
+          id="description"
+          placeholder="High quality classic watch"
+        />
+
+        <div
+          *ngIf="
+            !productForm.get('description')?.valid &&
+            productForm.get('description')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid description is required
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="price" class="form-label">Price</label>
+        <input
+          formControlName="price"
+          type="number"
+          step="0.01"
+          class="form-control"
+          id="price"
+          placeholder="10.20"
+        />
+
+        <div
+          *ngIf="
+            !productForm.get('price')?.valid &&
+            productForm.get('price')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid price is required
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="imageUrl" class="form-label">Image URL</label>
+        <input
+          formControlName="imageUrl"
+          type="url"
+          class="form-control"
+          id="imageUrl"
+          placeholder="https://image.url/the-image"
+        />
+
+        <div
+          *ngIf="
+            !productForm.get('imageUrl')?.valid &&
+            productForm.get('imageUrl')?.touched
+          "
+          class="alert alert-danger"
+        >
+          A valid image URL is required
+        </div>
+      </div>
+
+      <button
+        type="submit"
         class="btn btn-primary me-2"
         [disabled]="productForm.status !== 'VALID'"
       >
@@ -117,7 +236,7 @@
         Cancel
       </button>
     </form>
-  </div>
-  <div class="col-3"></div>
-</div>
+
+</div> -->
+
 <app-loading-spinner *ngIf="loading"></app-loading-spinner>

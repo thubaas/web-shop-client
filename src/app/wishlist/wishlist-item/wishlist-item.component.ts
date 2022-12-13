@@ -47,8 +47,12 @@ export class WishlistItemComponent implements OnInit, OnDestroy {
     this.loading = true;
     let product = this.wishlist.product;
     let cartItem: CartItemModel = {
+      id: -1,
       quantity: 1,
-      product: { ...product },
+      productId: product.id!,
+      productName: product.name,
+      price: product.price,
+      imageUrl: product.imageUrl,
     };
     this.moveToCartObservable = this.cartService.addToCart(cartItem);
     this.moveToCartObservable.subscribe({
