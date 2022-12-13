@@ -15,8 +15,8 @@ export class CartService {
   cartItems: CartItemModel[] = [];
   totalCost: number = 0;
   baseUrl = environment.baseUrl;
-
-  constructor(private http: HttpClient) {}
+  
+  constructor(private http:HttpClient) {}
 
   getCartItems() {
     return this.cartItems.slice();
