@@ -68,11 +68,14 @@ export class ProductDetailsComponent implements OnInit, OnDestroy {
   onAddToCart() {
     this.loading = true;
     let cartItem: CartItemModel = {
-      product: this.product,
-      productId: this.product.id,
+      id: this.id,
+      productId: this.product.id!,
+      productName: this.product.name,
+      imageUrl: this.product.imageUrl,
+      price: this.product.price,
       quantity: this.quantityInput.nativeElement.value,
     };
-    console.log('Cart Product : ', this.product);
+
     this.cartObservable = this.cartService.addToCart(cartItem);
     this.cartObservable.subscribe({
       next: (resData) => this.onSuccess(resData),
