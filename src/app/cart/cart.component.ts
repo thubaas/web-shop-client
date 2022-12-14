@@ -27,7 +27,7 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.invokeStripe();
+    this.invokeStripe();
     this.cartItems = this.cartService.getCartItems();
     this.totalCost = this.cartService.getCart().totalCost;
     this.canOrder = this.totalCost > 0;
@@ -35,19 +35,19 @@ export class CartComponent implements OnInit {
 
   order() {  
     this.makePayment();
-    // this.http
-    //   .post<{ sessionId: string }>(
-    //     `${environment.baseUrl}/orders/create-checkout-session`, //needs update
-    //     this.cartItems
-    //   )
-    //   .subscribe({
-    //     next: (resData) => {
-    //       console.log(resData);
-    //       localStorage.setItem('sessionId', resData.sessionId);
-    //     },
-    //     error: (errRes) => console.log(errRes),
-    //     complete: this.makePayment,
-    //   });
+    this.http
+      .post<{ sessionId: string }>(
+        `${environment.baseUrl}/orders/create-checkout-session`, //needs update
+        this.cartItems
+      )
+      .subscribe({
+        next: (resData) => {
+          console.log(resData);
+          localStorage.setItem('sessionId', resData.sessionId);
+        },
+        error: (errRes) => console.log(errRes),
+        complete: this.makePayment,
+      });
   }
 
   makePayment() {

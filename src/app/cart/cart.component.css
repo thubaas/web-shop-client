@@ -1,3 +1,4 @@
+
 .cart-footer > span {
     font-size: 1.5rem;
     font-weight: 400;
@@ -7,4 +8,20 @@
 .cart-footer > span,
 .cart-footer > button {
   margin: 2rem;
+}
+
+.btn-checkout {
+  width: 150px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  
+  background-color: #072f5f;
+  color: #ffa700;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.btn-checkout:hover {
+  color: #ffa6006b;
 }
