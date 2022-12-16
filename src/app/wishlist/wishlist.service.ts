@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Subject, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { CartModel } from '../cart/cart.model';
+import { CartService } from '../cart/cart.service';
 import { ProductModel } from '../product/product.model';
 import { WishlistModel } from './wishlist.model';
 
@@ -12,7 +14,7 @@ export class WishlistService {
   wishlistChanged = new Subject<WishlistModel[]>();
   wishlists: WishlistModel[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cartService: CartService) {}
 
   setWishlists(wishlists: WishlistModel[]) {
     this.wishlists = wishlists;
@@ -57,7 +59,7 @@ export class WishlistService {
   removeFromWishlist(index: number) {
     let targetWishlist = this.wishlists[index];
     return this.http
-      .delete<Boolean>(`${environment.baseUrl}/${targetWishlist.id}`)
+      .delete<Boolean>(`${environment.baseUrl}/wishlists/${targetWishlist.id}`)
       .pipe(
         catchError((errRes) => this.handleError(errRes)),
         tap((resData) => {
