@@ -11,6 +11,8 @@ import { CategoryService } from '../category.service';
 export class CategoryItemComponent implements OnInit {
   @Input() category: CategoryModel;
   @Input() index: number;
+  hide: boolean = true;
+  toggledText: string;
 
   constructor(
     private categoryService: CategoryService,
@@ -18,7 +20,13 @@ export class CategoryItemComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // this.toggledText = this.category.description.substring(0, 6)
+  }
+
+  toggleText() {
+    this.hide = !this.hide;
+  }
 
   onEdit() {
     console.log('Category : ', this.category);
