@@ -16,3 +16,20 @@ h4 {
   gap: 20px;
   align-items: stretch;
 }
+
+.btn-add-category {
+  width: 150px;
+  height: 40px;
+  display: block;
+  border-radius: 5px;
+  border: none;
+  margin: auto;
+  background-color: #072f5f;
+  color: #ffa700;
+  font-weight: 400;
+  font-size: 1em;
+}
+
+.btn-add-category:hover {
+  color: #ffa6006b;
+}

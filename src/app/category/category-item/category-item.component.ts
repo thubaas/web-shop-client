@@ -21,7 +21,6 @@ export class CategoryItemComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.toggledText = this.category.description.substring(0, 6)
   }
 
   toggleText() {
