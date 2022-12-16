@@ -26,7 +26,7 @@ export class ProductItemComponent implements OnInit {
   canEdit: boolean;
   success: boolean = false;
   loading: boolean;
-  wishlistObservable: Observable<Boolean>;
+  wishlistObservable: Observable<WishlistModel>;
   cartObservable: Observable<CartModel>;
 
   constructor(
@@ -53,13 +53,13 @@ export class ProductItemComponent implements OnInit {
 
   onAddToWishList() {
     this.loading = true;
-    // const product = this.productService.getProduct(this.index);
-    // const wishlist: WishlistModel = { product };
-    // this.wishlistObservable = this.wishlistService.addToWishlist(wishlist);
-    // this.wishlistObservable.subscribe({
-    //   next: (resData) => this.onSuccess(resData),
-    //   error: (errorData) => this.onError(errorData),
-    // });
+    const product = this.productService.getProduct(this.index);
+    const wishlist: WishlistModel = { product };
+    this.wishlistObservable = this.wishlistService.addToWishlist(product);
+    this.wishlistObservable.subscribe({
+      next: (resData) => this.onSuccess(resData),
+      error: (errorData) => this.onError(errorData),
+    });
   }
 
   onAddToCart() {

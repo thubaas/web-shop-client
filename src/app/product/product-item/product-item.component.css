@@ -46,6 +46,10 @@
   border: none;
 }
 
+.btn-wishlist:hover {
+  color: rgb(138, 18, 18);
+}
+
 .btn-cart {
   width: 150px;
   height: 40px;
