@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
+import { UserModel } from '../auth/user.model';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   show: boolean = false;
+  user: string = 'guest';
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.authService.user.subscribe({
+      next: (authData) => (this.user = authData?.username || 'guest'),
+    });
+  }
 }
