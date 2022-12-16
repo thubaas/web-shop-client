@@ -31,9 +31,17 @@ export class CartComponent implements OnInit {
     this.cartItems = this.cartService.getCartItems();
     this.totalCost = this.cartService.getCart().totalCost;
     this.canOrder = this.totalCost > 0;
+    this.cartService.cartChanged.subscribe({
+      next: () => {
+        this.cartItems = this.cartService.getCartItems();
+        this.totalCost = this.cartService.getCart().totalCost;
+        this.canOrder = this.totalCost > 0;
+      },
+    });
+
   }
 
-  order() {  
+  order() {
     this.makePayment();
     this.http
       .post<{ sessionId: string }>(

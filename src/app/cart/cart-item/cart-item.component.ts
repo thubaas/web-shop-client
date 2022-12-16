@@ -25,12 +25,14 @@ export class CartItemComponent implements OnInit, OnDestroy {
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
   @ViewChild('quantityRef', { static: false }) quantityInput: ElementRef;
   private closeSubscription: Subscription;
-  private cartObservable: Observable<CartModel>;
+  // private cartObservable: Observable<CartModel>;
+  private cartObservable: Observable<Boolean>;
 
   constructor(private cartService: CartService) {}
 
   ngOnInit(): void {
     // console.log('Cart Item : ', this.cartItem);
+    
   }
 
   onRemoveFromCart() {
