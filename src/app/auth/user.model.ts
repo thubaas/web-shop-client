@@ -1,4 +1,5 @@
 export interface UserModel {
-    token: string;
-    id: number;
+  token: string;
+  id: number;
+  username: string;
 }

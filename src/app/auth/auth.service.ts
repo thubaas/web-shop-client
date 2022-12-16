@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   private handleAuth(signinRes: SigninRespModel) {
-    let userData: UserModel = {'token': signinRes.token, 'id': signinRes.id};
+    let userData: UserModel = {'token': signinRes.token, 'id': signinRes.id, 'username': signinRes.username};
     let userJSON = JSON.stringify(userData);
     localStorage.setItem('user', userJSON);
     this.user.next(userData);
