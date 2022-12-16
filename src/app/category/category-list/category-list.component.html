@@ -7,12 +7,10 @@
       </div>
     </div>
   </div>
-  <div class="row">
-    <div
-      *ngFor="let category of categories; let i = index"
-      class="col-md-6 col-xl-4 col-12 pt-3 justify-content-around d-flex"
-    >
+
+  <div class="grid">
+    <article *ngFor="let category of categories; let i = index" class="">
       <app-category-item [category]="category" [index]="i"></app-category-item>
-    </div>
+    </article>
   </div>
 </div>
