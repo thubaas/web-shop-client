@@ -3,18 +3,15 @@
     <div class="col-12 text-center">
       <h3 class="pt-3">Your Wishlist</h3>
       <div>
-        <button class="btn btn-outline-primary" (click)="onMoveAllToCart()">
+        <button class="btn-move" (click)="onMoveAllToCart()" *ngIf="wishlists.length > 0">
           Move all to Cart
         </button>
       </div>
     </div>
   </div>
-  <hr style="margin: 2rem;"/>
+  <hr style="margin: 2rem" />
   <div class="row">
-    <div
-      *ngFor="let wishlist of wishlists; let i = index"
-      class=""
-    >
+    <div *ngFor="let wishlist of wishlists; let i = index" class="">
       <app-wishlist-item [wishlist]="wishlist" [index]="i"></app-wishlist-item>
     </div>
   </div>
