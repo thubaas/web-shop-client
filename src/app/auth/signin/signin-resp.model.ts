@@ -2,5 +2,6 @@ export interface SigninRespModel {
   status: string;
   token: string;
   id: number;
-  username: string
+  username: string;
+  role: string;
 }

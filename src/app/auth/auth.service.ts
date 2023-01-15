@@ -39,15 +39,20 @@ export class AuthService {
   }
 
   autoSignin() {
-    let userJSON = localStorage.getItem('user');
-    if (userJSON !== null) {
-      let userData = JSON.parse(userJSON);
+    let userData = this.getAuthenticatedUser();
+    if (userData !== null) {
       this.user.next(userData);
     }
   }
 
   isAuthenticated(): boolean {
-    return localStorage.getItem('user') !== null;
+    return this.getAuthenticatedUser() !== null;
+  }
+
+  getAuthenticatedUser() {
+    const userJSON = localStorage.getItem('user');
+    if (userJSON !== null) return JSON.parse(userJSON);
+    return null;
   }
 
   signout() {
@@ -56,7 +61,12 @@ export class AuthService {
   }
 
   private handleAuth(signinRes: SigninRespModel) {
-    let userData: UserModel = {'token': signinRes.token, 'id': signinRes.id, 'username': signinRes.username};
+    let userData: UserModel = {
+      token: signinRes.token,
+      id: signinRes.id,
+      username: signinRes.username,
+      role: signinRes.role,
+    };
     let userJSON = JSON.stringify(userData);
     localStorage.setItem('user', userJSON);
     this.user.next(userData);

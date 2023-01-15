@@ -109,6 +109,23 @@
         </div>
       </div>
 
+      <div class="mb-3">
+        <label class="form-label" for="role">Role</label>
+        <select
+          name="role"
+          id="role"
+          formControlName="role"
+          class="form-control"
+        >
+          <option
+            *ngFor="let role of roleValues; let i = index"
+            [value]="role"
+          >
+            {{ role }}
+          </option>
+        </select>
+      </div>
+
       <button
         type="submit"
         class="btn btn-primary me-2"

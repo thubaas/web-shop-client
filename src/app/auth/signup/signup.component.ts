@@ -16,6 +16,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   signupForm: FormGroup;
   loading: boolean = false;
   success: boolean = false;
+  roleValues: string[] = ['USER', 'ADMIN'];
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
   signupObsevable: Observable<SignupRespModel>;
   private closeSubscription: Subscription;
@@ -97,6 +98,7 @@ export class SignupComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.minLength(8),
       ]),
+      role: new FormControl(this.roleValues[0])
     });
   }
 
