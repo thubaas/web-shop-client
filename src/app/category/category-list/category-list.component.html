@@ -3,7 +3,13 @@
     <div class="col-12 text-center">
       <h3 class="pt-3">Our Categories</h3>
       <div>
-        <button class="btn-add-category" (click)="onAddCategory()">Add Category</button>
+        <button
+          class="btn-add-category"
+          (click)="onAddCategory()"
+          *ngIf="role === 'ADMIN'"
+        >
+          Add Category
+        </button>
       </div>
     </div>
   </div>

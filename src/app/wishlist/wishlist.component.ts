@@ -44,6 +44,7 @@ export class WishlistComponent implements OnInit, OnDestroy {
 
   onSuccess(msg: string) {
     this.loading = false;
+    this.wishlists = [];
     this.showAlert(msg, 'bi bi-check-circle text-success');
   }
 

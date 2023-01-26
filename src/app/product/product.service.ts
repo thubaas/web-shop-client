@@ -11,6 +11,8 @@ import { ProductModel } from './product.model';
 export class ProductService {
   productsChanged = new Subject<ProductModel[]>();
   products: ProductModel[] = [];
+  searchChanged = new Subject<ProductModel[]>();
+  searchResults: ProductModel[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -22,8 +24,21 @@ export class ProductService {
   getProducts() {
     return this.products.slice();
   }
+
   getProduct(index: number) {
     return this.products[index];
+  }
+
+  searchProducts(name: string) {
+    return this.http
+      .get<ProductModel[]>(`${environment.baseUrl}/products/search/${name}`)
+      .pipe(
+        catchError((errorMes) => this.handleError(errorMes)),
+        tap((resData) => {
+          this.searchResults = resData;
+          this.searchChanged.next(this.searchResults.slice());
+        })
+      );
   }
 
   addProduct(product: ProductModel) {

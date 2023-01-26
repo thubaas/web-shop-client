@@ -25,15 +25,12 @@ export class CartItemComponent implements OnInit, OnDestroy {
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective;
   @ViewChild('quantityRef', { static: false }) quantityInput: ElementRef;
   private closeSubscription: Subscription;
-  // private cartObservable: Observable<CartModel>;
+  private quantityObservable: Observable<CartModel>;
   private cartObservable: Observable<Boolean>;
 
   constructor(private cartService: CartService) {}
 
-  ngOnInit(): void {
-    // console.log('Cart Item : ', this.cartItem);
-    
-  }
+  ngOnInit(): void {}
 
   onRemoveFromCart() {
     this.loading = true;
@@ -42,14 +39,27 @@ export class CartItemComponent implements OnInit, OnDestroy {
       this.cartItem
     );
     this.cartObservable.subscribe({
-      next: (resData) => this.onSuccess(resData),
+      next: (resData) => {
+        this.onSuccess(resData);
+      },
       error: (errRes) => this.onError(errRes),
     });
   }
 
   onQuantityChange() {
-    const quantity = this.quantityInput.nativeElement.value;
-    this.cartItem.quantity = quantity;
+    const quantity: number = this.quantityInput.nativeElement.value;
+    this.cartItem.quantity = +quantity;
+    this.quantityObservable = this.cartService.updateCartItem(this.cartItem);
+    this.quantityObservable.subscribe({
+      next: (resData) => {
+        this.loading = false;
+        this.showAlert('Cart Item updated', 'bi bi-check-circle text-success');
+      },
+      error: (errMess) => {
+        this.loading = false;
+        this.showAlert(errMess, 'bi bi-exclamation-circle text-danger');
+      },
+    });
   }
 
   onSuccess(resData: any) {

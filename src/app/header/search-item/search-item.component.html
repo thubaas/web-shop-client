@@ -1,3 +1,4 @@
+<ng-template appPlaceholder></ng-template>
 <div class="wishlist-item">
   <img
     [src]="product.imageUrl"
@@ -15,7 +16,8 @@
     </button>
 
     <button class="btn btn-outline-primary" (click)="onAddtoWishlist()">
-        Add to Wishlist
-      </button>
+      Add to Wishlist
+    </button>
   </div>
 </div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

@@ -1,3 +1,5 @@
+
+<ng-template appPlaceholder></ng-template>
 <div class="container">
   <div class="row">
     <div class="col-12 text-center">
@@ -15,14 +17,15 @@
 
   <hr />
   <div class="cart-footer">
-    <span>Total : <sup> $ </sup> {{ totalCost }}</span>
+    <span>Total : <sup> $ </sup> {{ totalCost.toFixed(2) }}</span>
     <button
-      (click)="order()"
-      [disabled]="!canOrder"
+      (click)="checkout()"
       type="button"
       class="btn-checkout"
+      *ngIf="cartItems.length > 0"
     >
       Checkout
     </button>
   </div>
 </div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

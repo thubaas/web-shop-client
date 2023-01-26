@@ -10,8 +10,14 @@
       >
 
       <div class="nav-top-item nav-search">
-        <input type="text" class="search-input" placeholder="search..." />
-        <i class="bi bi-search icon-search"></i>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Search product here..."
+          #searchRef
+          
+        />
+        <i class="bi bi-search icon-search" (click)="onSearch()" role="button"></i>
       </div>
       <div class="nav-top-item">
         <div>
@@ -35,5 +41,13 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="results-container" id="results-container" *ngIf="searchResults.length > 0" #resultsRef >
+    <app-search-item
+      *ngFor="let product of searchResults; let i = index"
+      [product]="product"
+      [index]="i"
+    ></app-search-item>
   </div>
 </nav>

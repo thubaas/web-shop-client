@@ -7,7 +7,9 @@
   />
   <div class="child-item">
     <div class="name">{{ wishlist.product.name }}</div>
-    <div class="card-text"><sup>$</sup>{{ wishlist.product.price }}</div>
+    <div class="card-text">
+      <sup>$</sup>{{ wishlist.product.price.toFixed(2) }}
+    </div>
   </div>
 
   <div class="child-item">

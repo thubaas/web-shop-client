@@ -16,12 +16,12 @@ const routes: Routes = [
     resolve: [CategoryResolverService, ProductResolverService],
   },
   {
-    path: 'admin/products',
+    path: 'products',
     loadChildren: () =>
       import('./product/product.module').then((m) => m.ProductModule),
   },
   {
-    path: 'admin/categories',
+    path: 'categories',
     loadChildren: () =>
       import('./category/category.module').then((m) => m.CategoryModule),
   },

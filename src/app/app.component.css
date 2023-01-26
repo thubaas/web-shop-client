@@ -5,6 +5,7 @@ body {
 
 .wrapper {
   display: flex;
+  margin-bottom: 100px;
 }
 
 .nav-link {
@@ -21,7 +22,6 @@ body {
   width: 10em;
   font-weight: 400;
   font-size: 1.2em;
-  /* background-color: #072f5f0c; */
 }
 
 .sidebar-navs {

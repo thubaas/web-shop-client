@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Subject, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ProductModel } from '../product/product.model';
 import { WishlistModel } from '../wishlist/wishlist.model';
 import { CartItemModel } from './cart-item/cart-item.model';
 import { CartModel } from './cart.model';
@@ -12,25 +11,55 @@ import { CartModel } from './cart.model';
 })
 export class CartService {
   cart: CartModel;
+
   cartChanged = new Subject<CartItemModel[]>();
+  totalCostChanged = new Subject<number>();
   cartItems: CartItemModel[] = [];
   totalCost: number = 0;
   baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 
+  getTotalCost() {
+    return this.totalCost;
+  }
+
+  setTotalCost(totalCost: number) {
+    this.totalCost = totalCost;
+    this.totalCostChanged.next(totalCost);
+  }
+
   getCartItems() {
-    return this.cartItems.slice();
+    if (this.cartItems) return this.cartItems.slice();
+    return [];
   }
 
   addToCart(cartItem: CartItemModel) {
     return this.http.post<CartModel>(`${this.baseUrl}/carts/`, cartItem).pipe(
       catchError((errorRes) => this.handleError(errorRes)),
       tap((resData) => {
+        console.log(resData);
         this.setCart(resData);
         this.setCartItems(resData.items);
+        this.setTotalCost(resData.totalCost);
       })
     );
+  }
+
+  updateCartItem(cartItem: CartItemModel) {
+    return this.http
+      .put<CartModel>(
+        `${this.baseUrl}/carts/${cartItem.cartId}/cartItems/${cartItem.id}/`,
+        cartItem
+      )
+      .pipe(
+        catchError((errorRes) => this.handleError(errorRes)),
+        tap((resData) => {
+          this.setCart(resData);
+          this.setCartItems(resData.items);
+          this.setTotalCost(resData.totalCost);
+        })
+      );
   }
 
   fetchCart() {
@@ -44,6 +73,7 @@ export class CartService {
       tap((resData) => {
         this.setCart(resData);
         this.setCartItems(resData.items);
+        this.setTotalCost(resData.totalCost);
       })
     );
   }
@@ -59,6 +89,7 @@ export class CartService {
         tap((resData) => {
           this.setCart(resData);
           this.setCartItems(resData.items);
+          this.setTotalCost(resData.totalCost);
         })
       );
   }
@@ -76,14 +107,14 @@ export class CartService {
     this.cartChanged.next(this.cartItems.slice());
   }
 
-  setTotalCost(totalCost: number) {
-    this.totalCost = totalCost;
-  }
-
   removeFromCart(index: number, cartItem: CartItemModel) {
+    let quantity = this.cartItems[index].quantity;
+    let cost = this.cartItems[index].price;
+
     let userJSON = localStorage.getItem('user');
     let userData;
     if (userJSON !== null) userData = JSON.parse(userJSON);
+
     return this.http
       .delete<Boolean>(
         `${environment.baseUrl}/carts/${this.cart.id}/cart-items/${cartItem.id}`
@@ -92,8 +123,24 @@ export class CartService {
         catchError((errorRes) => this.handleError(errorRes)),
         tap((resData) => {
           this.cart.items.splice(index, 1);
-          this.cartItems = this.cart.items;
-          this.cartChanged.next(this.cartItems.slice());
+          this.setCartItems(this.cart.items);
+          this.setTotalCost(this.totalCost - quantity * cost);
+        })
+      );
+  }
+
+  checkout(cartItems: CartItemModel[]) {
+    console.log(cartItems);
+
+    return this.http
+      .post<any>(
+        `${environment.baseUrl}/orders/create-checkout-session`,
+        cartItems
+      )
+      .pipe(
+        catchError((errRes) => this.handleError(errRes)),
+        tap((resData) => {
+          console.log(resData);
         })
       );
   }

@@ -7,20 +7,17 @@
   />
   <div class="child-item">
     <div class="name">{{ cartItem.productName }}</div>
-    <div class="card-text"><sup>$</sup>{{ cartItem.price }}</div>
+    <div class="card-text"><sup>$</sup>{{ cartItem.price.toFixed(2) }}</div>
   </div>
 
   <div class="child-item">
     <div id="quantity-label">Quantity</div>
-    <!-- <div id="cart-item-quantity">
-      {{ cartItem.quantity }}
-    </div> -->
     <input
       class="form-control"
       type="number"
       id="cart-item-quantity"
       min="1"
-      [defaultValue]="1"
+      [defaultValue]="cartItem.quantity"
       step="1"
       #quantityRef
       (change)="onQuantityChange()"

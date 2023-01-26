@@ -53,3 +53,18 @@
 .nav-link:hover {
   color: #757b81
 }
+
+.results-container {
+  box-shadow: 2px 2px 8px #757b81;
+  border-radius: 10px;
+  width: fit-content;
+  margin: auto;
+
+  position: absolute;
+  z-index: 1;
+  left: 25%;
+  right: 25%;
+
+  background-color: white;
+
+}

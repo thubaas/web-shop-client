@@ -1,8 +1,9 @@
+<ng-template appPlaceholder></ng-template>
 <div class="card">
   <img class="product-image" [src]="product.imageUrl" alt="Product Image" />
 
   <div class="product-text">
-    <div class="product-price"><sup>$</sup>{{ product.price }}</div>
+    <div class="product-price"><sup>$</sup>{{ product.price.toFixed(2) }}</div>
     <div class="product-name" (click)="showProductDetails()">
       {{ product.name }}
     </div>
@@ -17,3 +18,4 @@
     </button>
   </div>
 </div>
+<app-loading-spinner *ngIf="loading"></app-loading-spinner>

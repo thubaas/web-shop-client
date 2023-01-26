@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { DialogComponent } from '../shared/dialog/dialog.component';
+import { PlaceholderDirective } from '../shared/placeholder.directive';
 import { CartItemModel } from './cart-item/cart-item.model';
 import { CartModel } from './cart.model';
 import { CartService } from './cart.service';
@@ -17,54 +20,82 @@ export class CartComponent implements OnInit {
   cartItems: CartItemModel[] = [];
   totalCost: number = 0;
   cartObservable: Observable<CartModel>;
-  canOrder: boolean = false;
+  totalCostObservable: Observable<number>;
+  orderObservable: Observable<string>;
+  loading: boolean = false;
+  
+
+  @ViewChild(PlaceholderDirective) dialogHost: PlaceholderDirective;
+  private closeSubscription: Subscription;
+  private confirmSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
     private cartService: CartService
   ) {}
 
   ngOnInit(): void {
+  
     this.invokeStripe();
     this.cartItems = this.cartService.getCartItems();
-    this.totalCost = this.cartService.getCart().totalCost;
-    this.canOrder = this.totalCost > 0;
+    this.totalCost = this.cartService.getTotalCost();
+   
     this.cartService.cartChanged.subscribe({
       next: () => {
         this.cartItems = this.cartService.getCartItems();
-        this.totalCost = this.cartService.getCart().totalCost;
-        this.canOrder = this.totalCost > 0;
       },
     });
 
+    this.cartService.totalCostChanged.subscribe({
+      next: () => {
+        this.totalCost = this.cartService.getTotalCost();
+      },
+    });
+  }
+
+  checkout() {
+    this.popDialog(
+      'Are you sure you want to proceed to checkout?',
+      'bi bi-question-circle'
+    );
   }
 
   order() {
-    this.makePayment();
-    this.http
-      .post<{ sessionId: string }>(
-        `${environment.baseUrl}/orders/create-checkout-session`, //needs update
-        this.cartItems
-      )
-      .subscribe({
-        next: (resData) => {
-          console.log(resData);
-          localStorage.setItem('sessionId', resData.sessionId);
-        },
-        error: (errRes) => console.log(errRes),
-        complete: this.makePayment,
-      });
+    this.orderObservable = this.cartService.checkout(this.cartItems);
+    this.orderObservable.subscribe({
+      next: (resData) => {
+        console.log(resData);
+        localStorage.setItem('sessionId', resData);
+      },
+      error: (errRes) => console.log(errRes),
+      complete: () => {
+        const paymentHandler = (<any>window).StripeCheckout.configure({
+          key: environment.pk_test,
+          locale: 'auto',
+          token: (stripeToken: any) => {
+            console.log(stripeToken);
+            this.showAlert('Payment Sucessful');
+          },
+        });
+
+        this.loading = false;
+
+        paymentHandler.open({
+          name: 'Web-Shop Payment',
+          description: 'Payment for your grocery',
+          amount: this.totalCost * 100,
+        });
+      },
+    });
   }
 
   makePayment() {
     const paymentHandler = (<any>window).StripeCheckout.configure({
       key: environment.pk_test,
       locale: 'auto',
-      token: function (stripeToken: any) {
+      token: (stripeToken: any) => {
         console.log(stripeToken);
-        alert('Stripe token generated');
       },
     });
     paymentHandler.open({
@@ -86,11 +117,53 @@ export class CartComponent implements OnInit {
           locale: 'auto',
           token: function (stripeToken: any) {
             console.log(stripeToken);
-            alert('Payment Successfull');
           },
         });
       };
       window.document.body.appendChild(script);
     }
   }
+
+  private popDialog(message: string, bsIconClass: string) {
+    const hostViewContainerRef = this.dialogHost.viewContainerRef;
+    hostViewContainerRef.clear();
+    const componentRef = hostViewContainerRef.createComponent(DialogComponent);
+
+    componentRef.instance.message = message;
+    componentRef.instance.iconClass = bsIconClass;
+
+    this.confirmSubscription = componentRef.instance.confirm.subscribe(() => {
+      hostViewContainerRef.clear();
+      console.log('Dialog on Confirm');
+      this.loading = true;
+      this.order();
+    });
+
+    this.closeSubscription = componentRef.instance.close.subscribe(() => {
+      hostViewContainerRef.clear();
+    });
+  }
+
+  private showAlert(
+    message: string,
+    bsIconClass: string = 'bi bi-check-circle'
+  ) {
+    const hostViewContainerRef = this.dialogHost.viewContainerRef;
+    hostViewContainerRef.clear();
+    const componentRef = hostViewContainerRef.createComponent(AlertComponent);
+
+    componentRef.instance.message = message;
+    componentRef.instance.iconClass = bsIconClass;
+    this.closeSubscription = componentRef.instance.close.subscribe(() => {
+      this.closeSubscription.unsubscribe();
+      hostViewContainerRef.clear();
+      this.cartService.setCartItems([]);
+      this.cartService.setTotalCost(0);
+      this.router.navigate(['/'], {
+        relativeTo: this.route.root,
+      });
+    });
+  }
 }
+
+

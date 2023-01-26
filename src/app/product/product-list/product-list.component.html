@@ -2,14 +2,18 @@
   <div class="product-list-header">
     <h3 class="product-list-heading">Our Products</h3>
 
-    <button class="btn-add-product" (click)="onAddProduct()">
+    <button
+      class="btn-add-product"
+      (click)="onAddProduct()"
+      *ngIf="role === 'ADMIN'"
+    >
       Add Product
     </button>
   </div>
 
-<div class="products-container">
-  <div *ngFor="let product of products; let i = index" class="">
-    <app-product-item [product]="product" [index]="i"></app-product-item>
+  <div class="products-container">
+    <div *ngFor="let product of products; let i = index" class="">
+      <app-product-item [product]="product" [index]="i"></app-product-item>
+    </div>
   </div>
-</div>
 </div>

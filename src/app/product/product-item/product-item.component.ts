@@ -54,7 +54,13 @@ export class ProductItemComponent implements OnInit {
   onAddToWishList() {
     this.loading = true;
     const product = this.productService.getProduct(this.index);
-    const wishlist: WishlistModel = { product };
+    let savedWishlist = this.wishlistService
+      .getWishlists()
+      .find((a) => a.product.name === product.name);
+    if (savedWishlist) {
+      this.onSuccess('Product Added Succefully');
+      return;
+    }
     this.wishlistObservable = this.wishlistService.addToWishlist(product);
     this.wishlistObservable.subscribe({
       next: (resData) => this.onSuccess(resData),
@@ -64,7 +70,6 @@ export class ProductItemComponent implements OnInit {
 
   onAddToCart() {
     this.loading = true;
-    // const quantity = this.quantityInput.nativeElement.value;
     const product = this.productService.getProduct(this.index);
 
     let cartItem: CartItemModel = {

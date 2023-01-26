@@ -12,7 +12,8 @@ export class AlertComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   onClose() {
     this.close.emit();

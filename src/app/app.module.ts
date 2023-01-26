@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { PaymentComponent } from './payment/payment.component';
 import { CoreModule } from './core.module';
 import { WishlistItemComponent } from './wishlist/wishlist-item/wishlist-item.component';
+import { SearchItemComponent } from './header/search-item/search-item.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { WishlistItemComponent } from './wishlist/wishlist-item/wishlist-item.co
     HomeComponent,
     PaymentComponent,
     WishlistItemComponent,
+    SearchItemComponent,
   ],
   imports: [
     AppRoutingModule,
