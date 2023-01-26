@@ -1,0 +1,9 @@
+<div class="backdrop" (click)="onClose()"></div>
+<div class="alert-box">
+  <i [ngClass]="iconClass" style="font-size: 40px"></i>
+  <p class="text-center alert-message">{{ message }}</p>
+  <div class="alert-box-actions">
+    <button class="btn btn-outline-danger" (click)="onClose()">Cancel</button>
+    <button class="btn btn-outline-primary" (click)="onConfirm()">Confirm</button>
+  </div>
+</div>
